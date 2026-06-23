@@ -2,6 +2,10 @@
 
 ![NixOS logo](./assets/nixos.png)
 
+[![nix-darwin](https://img.shields.io/badge/nix--darwin-macOS-7eb6dd?style=for-the-badge&logo=nixos&logoColor=white)](https://github.com/nix-darwin/nix-darwin)
+[![Home Manager](https://img.shields.io/badge/home--manager-enabled-38bdf8?style=for-the-badge&logo=nixos&logoColor=white)](https://nix-community.github.io/home-manager/)
+[![Nix flakes](https://img.shields.io/badge/flakes-on-14b8a6?style=for-the-badge&logo=nixos&logoColor=white)](https://nix.dev/manual/nix/latest/command-ref/new-cli/nix3-flake)
+
 ## Snapshot
 
 | Area | Current setup |
