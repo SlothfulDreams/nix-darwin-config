@@ -23,7 +23,8 @@
 - System packages for shell work, JavaScript/mobile tooling, version control,
   editors, and creative tools.
 - Homebrew casks for desktop apps like Helium, Ghostty, Raycast, Zed, Claude,
-  Codex, Spotify, Vesktop, Docker Desktop, and 1Password.
+  Codex, Spotify, Steam, Visual Studio Code, Vesktop, Docker Desktop, and
+  1Password.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
@@ -84,7 +85,7 @@ nix fmt
 | Editors | `neovim` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
-| Apps | `helium-browser`, `ghostty`, `raycast`, `zed`, `claude`, `codex`, `1password`, `spotify`, `vesktop` |
+| Apps | `helium-browser`, `ghostty`, `raycast`, `zed`, `claude`, `codex`, `1password`, `spotify`, `steam`, `visual-studio-code`, `vesktop` |
 
 ## Notes
 
