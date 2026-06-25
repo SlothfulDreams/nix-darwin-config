@@ -20,8 +20,8 @@
 
 ## What This Manages
 
-- System packages for shell work, JavaScript/mobile tooling, version control,
-  editors, and creative tools.
+- System packages for shell work, networking, JavaScript/mobile tooling,
+  version control, editors, and creative tools.
 - Homebrew casks for desktop apps like Helium, Ghostty, Raycast, Zed, Claude,
   Codex, Spotify, Steam, Visual Studio Code, Vesktop, Docker Desktop, and
   1Password.
@@ -82,6 +82,7 @@ nix fmt
 | --- | --- |
 | Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
 | Git | `git`, `gh` |
+| Networking | `tailscale` |
 | Editors | `neovim` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |

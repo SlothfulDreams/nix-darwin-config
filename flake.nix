@@ -42,6 +42,9 @@
         pkgs.git
         pkgs.gh
 
+        # Networking
+        pkgs.tailscale
+
         # Editors and terminals
         pkgs.neovim
 
