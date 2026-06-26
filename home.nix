@@ -20,6 +20,7 @@
     package = null;
     settings = {
       font-size = 18;
+      shell-integration-features = "ssh-env,ssh-terminfo";
     };
   };
 
