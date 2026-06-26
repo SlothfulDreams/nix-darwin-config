@@ -57,9 +57,6 @@
         pkgs.pnpm
         pkgs.rustup
         pkgs.xcodegen
-
-        # Creative tools
-        pkgs.blender
       ];
 
       # ---- Homebrew ----------------------------------------------------------
@@ -73,7 +70,7 @@
           "helium-browser"
           "1password"
           "raycast"
-          "vesktop"
+          "discord"
           "spotify"
           "steam"
           "ghostty"
