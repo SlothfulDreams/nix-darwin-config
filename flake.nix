@@ -101,10 +101,19 @@
         pkgs.nerd-fonts.jetbrains-mono
       ];
 
+      # ---- Services ----------------------------------------------------------
+      services.tailscale.enable = true;
+
       # ---- App Configuration -------------------------------------------------
       environment.etc."1password/custom_allowed_browsers".text = ''
         net.imput.helium
       '';
+
+      networking = {
+        computerName = "Slothbook";
+        hostName = "Slothbook";
+        localHostName = "Slothbook";
+      };
 
       system.primaryUser = "slothy";
       users.users.slothy.home = "/Users/slothy";
@@ -171,7 +180,7 @@
           keep_generations() {
             profile="$1"
             if [ -e "$profile" ]; then
-              ${pkgs.nix}/bin/nix-env --profile "$profile" --delete-generations +14
+              ${pkgs.nix}/bin/nix-env --profile "$profile" --delete-generations +5
             fi
           }
 
@@ -215,8 +224,8 @@
   in {
     formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Slothys-MacBook-Pro
-    darwinConfigurations."Slothys-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#Slothbook
+    darwinConfigurations."Slothbook" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
         nix-homebrew.darwinModules.nix-homebrew

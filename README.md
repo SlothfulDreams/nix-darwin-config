@@ -10,7 +10,7 @@
 
 | Area | Current setup |
 | --- | --- |
-| Host | `Slothys-MacBook-Pro` |
+| Host | `Slothbook` |
 | User | `slothy` |
 | Platform | `aarch64-darwin` |
 | Nixpkgs | `nixpkgs-unstable` |
@@ -22,6 +22,7 @@
 
 - System packages for shell work, networking, JavaScript/mobile tooling,
   version control, editors, and creative tools.
+- System services for Tailscale.
 - Homebrew casks for desktop apps like Helium, Ghostty, Raycast, Zed, Claude,
   Codex, Spotify, Steam, Visual Studio Code, Vesktop, Docker Desktop, and
   1Password.
@@ -29,14 +30,14 @@
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
   `direnv`, `nix-direnv`, `zoxide`, and Codex Vim mode.
-- A weekly launchd cleanup job that prunes old Nix generations and runs store
-  garbage collection.
+- A weekly launchd cleanup job that keeps the last 5 Nix generations and runs
+  store garbage collection.
 
 ## Layout
 
 ```text
 .
-+-- flake.nix      # nix-darwin system, packages, Homebrew, macOS defaults
++-- flake.nix      # nix-darwin system, packages, services, Homebrew, macOS defaults
 +-- home.nix       # Home Manager user config
 +-- flake.lock     # pinned flake inputs
 +-- assets/
@@ -49,7 +50,7 @@
 Apply the system:
 
 ```sh
-sudo darwin-rebuild switch --flake .#Slothys-MacBook-Pro
+sudo darwin-rebuild switch --flake .#Slothbook
 ```
 
 Or use the Home Manager Zsh alias from this repo root:
@@ -61,7 +62,7 @@ drs
 Build without switching:
 
 ```sh
-darwin-rebuild build --flake .#Slothys-MacBook-Pro
+darwin-rebuild build --flake .#Slothbook
 ```
 
 Update inputs:
@@ -87,6 +88,12 @@ nix fmt
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
 | Apps | `helium-browser`, `ghostty`, `raycast`, `zed`, `claude`, `codex`, `1password`, `spotify`, `steam`, `visual-studio-code`, `vesktop` |
+
+## Services
+
+| Service | Status |
+| --- | --- |
+| Tailscale | Enabled at startup |
 
 ## Notes
 
