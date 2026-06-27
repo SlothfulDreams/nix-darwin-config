@@ -47,6 +47,7 @@
 
         # Editors and terminals
         pkgs.neovim
+        pkgs.selene
 
         # JavaScript tooling
         pkgs.bun
@@ -74,6 +75,7 @@
           "discord"
           "spotify"
           "steam"
+          "robloxstudio"
           "ghostty"
           "zed"
           "visual-studio-code"
