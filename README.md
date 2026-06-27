@@ -23,9 +23,9 @@
 - System packages for shell work, networking, JavaScript/mobile tooling,
   version control, editors, and creative tools.
 - System services for Tailscale.
-- Homebrew casks for desktop apps like Helium, Ghostty, Raycast, Zed, Claude,
-  Codex, Spotify, Steam, Visual Studio Code, Vesktop, Docker Desktop, and
-  1Password.
+- Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
+  Obsidian, Raycast, Discord, Spotify, Steam, Ghostty, Zed, Visual Studio Code,
+  Claude, Claude Code, Codex, Codex App, and Wispr Flow.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
@@ -87,7 +87,7 @@ nix fmt
 | Editors | `neovim` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
-| Apps | `helium-browser`, `ghostty`, `raycast`, `zed`, `claude`, `codex`, `1password`, `spotify`, `steam`, `visual-studio-code`, `vesktop` |
+| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `spotify`, `steam`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code`, `codex`, `codex-app`, `wispr-flow` |
 
 ## Services
 

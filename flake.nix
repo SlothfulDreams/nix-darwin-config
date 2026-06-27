@@ -69,6 +69,7 @@
           "docker-desktop"
           "helium-browser"
           "1password"
+          "obsidian"
           "raycast"
           "discord"
           "spotify"
