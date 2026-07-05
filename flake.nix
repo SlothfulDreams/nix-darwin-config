@@ -31,6 +31,7 @@
         pkgs.fd
         pkgs.fastfetch
         pkgs.fzf
+        pkgs.herdr
         pkgs.ripgrep
         pkgs.tldr
         pkgs.television

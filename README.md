@@ -81,7 +81,7 @@ nix fmt
 
 | Bucket | Examples |
 | --- | --- |
-| Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
+| Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `herdr`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
 | Git | `git`, `gh` |
 | Networking | `tailscale` |
 | Editors | `neovim`, `selene` |
