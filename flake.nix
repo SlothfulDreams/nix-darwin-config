@@ -31,7 +31,6 @@
         pkgs.fd
         pkgs.fastfetch
         pkgs.fzf
-        pkgs.herdr
         pkgs.ripgrep
         pkgs.tldr
         pkgs.television
@@ -66,6 +65,7 @@
         enable = true;
         brews = [
           "mole"
+          "herdr"
         ];
         casks = [
           "docker-desktop"
@@ -82,9 +82,10 @@
           "visual-studio-code"
           "claude"
           "claude-code"
+          "chatgpt"
           "codex"
-          "codex-app"
           "wispr-flow"
+          "logi-options+"
         ];
 
         masApps = {};
@@ -150,7 +151,7 @@
             "/Applications/Helium.app"
             "/Applications/Ghostty.app"
             "/Applications/Claude.app"
-            "/Applications/Codex.app"
+            "/Applications/ChatGPT.app"
           ];
           persistent-others = [];
         };

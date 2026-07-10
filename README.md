@@ -25,7 +25,8 @@
 - System services for Tailscale.
 - Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
   Obsidian, Raycast, Discord, Spotify, Steam, Roblox Studio, Ghostty, Zed,
-  Visual Studio Code, Claude, Claude Code, Codex, Codex App, and Wispr Flow.
+  Visual Studio Code, Claude, Claude Code, ChatGPT, Wispr Flow, and
+  Logi Options+.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
@@ -87,7 +88,7 @@ nix fmt
 | Editors | `neovim`, `selene` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
-| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code`, `codex`, `codex-app`, `wispr-flow` |
+| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code`, `chatgpt`, `wispr-flow` |
 
 ## Services
 
@@ -104,7 +105,7 @@ nix fmt
   activation.
 - 1Password is configured to allow Helium through
   `/etc/1password/custom_allowed_browsers`.
-- The Dock is intentionally short: Helium, Ghostty, Claude, and Codex.
+- The Dock is intentionally short: Helium, Ghostty, Claude, and ChatGPT.
 
 ## References
 
