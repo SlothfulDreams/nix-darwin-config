@@ -25,7 +25,35 @@
     package = null;
     settings = {
       font-size = 18;
+      copy-on-select = "clipboard";
       shell-integration-features = "ssh-env,ssh-terminfo";
+    };
+  };
+
+  # Herdr is installed through Homebrew in flake.nix. Home Manager owns its
+  # configuration without installing a second copy from nixpkgs.
+  programs.herdr = {
+    enable = true;
+    package = null;
+    settings = {
+      onboarding = false;
+
+      terminal.new_cwd = "follow";
+
+      ui = {
+        show_agent_labels_on_pane_borders = true;
+        toast.delivery = "herdr";
+      };
+
+      keys = {
+        prefix = "ctrl+a";
+        focus_pane_left = "ctrl+h";
+        focus_pane_down = "ctrl+j";
+        focus_pane_up = "ctrl+k";
+        focus_pane_right = "ctrl+l";
+      };
+
+      experimental.pane_history = false;
     };
   };
 
@@ -69,7 +97,7 @@
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = ["git"];
+      plugins = ["git" "vi-mode" "colored-man-pages" "copypath" "copyfile"];
     };
 
     shellAliases = {
@@ -79,6 +107,14 @@
     initContent = ''
       eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd --shell zsh)"
     '';
+  };
+
+  programs.eza = {
+    enable = true;
+    enableZshIntegration = true;
+    icons = "auto";
+    git = true;
+    extraOptions = ["--group-directories-first"];
   };
 
   programs.fzf = {

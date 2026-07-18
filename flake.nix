@@ -45,6 +45,9 @@
         # Networking
         pkgs.tailscale
 
+        # Media tools
+        pkgs.ffmpeg
+
         # Editors and terminals
         pkgs.neovim
         pkgs.selene
@@ -66,6 +69,7 @@
         brews = [
           "mole"
           "herdr"
+          "pi-coding-agent"
         ];
         casks = [
           "docker-desktop"

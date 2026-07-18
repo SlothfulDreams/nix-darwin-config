@@ -85,6 +85,7 @@ nix fmt
 | Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `herdr`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
 | Git | `git`, `gh` |
 | Networking | `tailscale` |
+| Media | `ffmpeg` |
 | Editors | `neovim`, `selene` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
