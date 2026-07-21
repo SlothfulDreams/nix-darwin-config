@@ -88,6 +88,7 @@
           "claude-code"
           "chatgpt"
           "codex"
+          "cursor-cli"
           "wispr-flow"
           "logi-options+"
         ];
@@ -137,6 +138,7 @@
           };
           "com.apple.symbolichotkeys" = {
             AppleSymbolicHotKeys = {
+              "60".enabled = false; # disable ctrl+space input source switching
               "64".enabled = false; # disable cmd+space for Spotlight Search
             };
           };

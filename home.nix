@@ -13,6 +13,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     VISUAL = "nvim";
+    PI_FFF_MODE = "override";
   };
 
   home.file.".hushlogin".text = "";
@@ -46,14 +47,30 @@
       };
 
       keys = {
+        # Herdr keymap: direct Vim-style movement plus prefixed actions.
         prefix = "ctrl+a";
+
+        open_worktree = "prefix+f";
+        remove_worktree = "prefix+d";
+
         focus_pane_left = "ctrl+h";
         focus_pane_down = "ctrl+j";
         focus_pane_up = "ctrl+k";
         focus_pane_right = "ctrl+l";
+
+        previous_workspace = "prefix+h";
+        next_workspace = "prefix+l";
+        previous_agent = "prefix+k";
+        next_agent = "prefix+j";
+
+        switch_workspace = "prefix+shift+1..9";
+        focus_agent = "prefix+alt+1..9";
       };
 
-      experimental.pane_history = false;
+      experimental = {
+        pane_history = false;
+        kitty_graphics = true;
+      };
     };
   };
 
@@ -97,7 +114,7 @@
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = ["git" "vi-mode" "colored-man-pages" "copypath" "copyfile"];
+      plugins = ["git" "colored-man-pages" "copypath" "copyfile"];
     };
 
     shellAliases = {
