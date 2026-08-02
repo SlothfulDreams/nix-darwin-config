@@ -77,7 +77,6 @@
           "1password"
           "obsidian"
           "raycast"
-          "readdle-spark"
           "discord"
           "spotify"
           "steam"
@@ -156,7 +155,6 @@
           magnification = true;
           persistent-apps = [
             "/Applications/Helium.app"
-            "/Applications/Spark Desktop.app"
             "/Applications/Ghostty.app"
             "/Applications/Claude.app"
             "/Applications/ChatGPT.app"
