@@ -119,6 +119,7 @@
 
     shellAliases = {
       drs = "sudo darwin-rebuild switch --flake .";
+      nup = "sudo sh -c 'cd /Users/slothy/.config/nix && nix flake update && darwin-rebuild switch --flake .'";
     };
 
     initContent = ''

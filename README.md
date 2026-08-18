@@ -24,7 +24,7 @@
   version control, editors, and creative tools.
 - System services for Tailscale.
 - Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
-  Obsidian, Raycast, Discord, Spotify, Steam, Roblox Studio, Ghostty, Zed,
+  Obsidian, Raycast, Discord, Slack, Spotify, Steam, Roblox Studio, Ghostty, Zed,
   Visual Studio Code, Claude, Claude Code, ChatGPT, Wispr Flow, and
   Logi Options+.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
@@ -89,7 +89,7 @@ nix fmt
 | Editors | `neovim`, `selene` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
-| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code`, `chatgpt`, `wispr-flow` |
+| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `slack`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code@latest`, `chatgpt`, `wispr-flow` |
 
 ## Services
 
