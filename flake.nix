@@ -47,6 +47,7 @@
 
         # Media tools
         pkgs.ffmpeg
+        pkgs.yt-dlp
 
         # Editors and terminals
         pkgs.neovim
