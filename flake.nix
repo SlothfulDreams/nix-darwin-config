@@ -113,18 +113,15 @@
       ];
 
       # ---- Services ----------------------------------------------------------
-      services.tailscale.enable = true;
+      services = {
+        openssh.enable = true;
+        tailscale.enable = true;
+      };
 
       # ---- App Configuration -------------------------------------------------
       environment.etc."1password/custom_allowed_browsers".text = ''
         net.imput.helium
       '';
-
-      networking = {
-        computerName = "Slothbook";
-        hostName = "Slothbook";
-        localHostName = "Slothbook";
-      };
 
       system.primaryUser = "slothy";
       users.users.slothy.home = "/Users/slothy";
