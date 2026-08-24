@@ -67,12 +67,16 @@
       # ---- Homebrew ----------------------------------------------------------
       homebrew = {
         enable = true;
+        taps = [
+          "nikitabobko/tap"
+        ];
         brews = [
           "mole"
           "herdr"
           "pi-coding-agent"
         ];
         casks = [
+          "nikitabobko/tap/aerospace"
           "docker-desktop"
           "helium-browser"
           "google-chrome"
@@ -116,6 +120,16 @@
       services = {
         openssh.enable = true;
         tailscale.enable = true;
+      };
+
+      # Launch AeroSpace in the primary user's GUI session. Its keybindings and
+      # layout remain in ~/.aerospace.toml for quick iteration.
+      launchd.user.agents.aerospace.serviceConfig = {
+        ProgramArguments = [
+          "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
+        ];
+        RunAtLoad = true;
+        ProcessType = "Interactive";
       };
 
       # ---- App Configuration -------------------------------------------------

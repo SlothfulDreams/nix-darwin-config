@@ -65,6 +65,14 @@
 
         switch_workspace = "prefix+shift+1..9";
         focus_agent = "prefix+alt+1..9";
+
+        command = [
+          {
+            key = "cmd+r";
+            type = "plugin_action";
+            command = "persiyanov.reviewr.toggle";
+          }
+        ];
       };
 
       experimental = {
