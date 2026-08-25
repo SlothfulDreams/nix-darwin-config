@@ -83,6 +83,7 @@
           "1password"
           "obsidian"
           "raycast"
+          "thaw"
           "discord"
           "slack"
           "spotify"
