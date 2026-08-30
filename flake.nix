@@ -99,7 +99,7 @@
           "codex"
           "cursor-cli"
           "wispr-flow"
-          "logi-options+"
+          "openlogi"
         ];
 
         masApps = {};
@@ -124,7 +124,7 @@
       };
 
       # Launch AeroSpace in the primary user's GUI session. Its keybindings and
-      # layout remain in ~/.aerospace.toml for quick iteration.
+      # layout remain in ~/.config/aerospace/aerospace.toml for quick iteration.
       launchd.user.agents.aerospace.serviceConfig = {
         ProgramArguments = [
           "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"

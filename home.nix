@@ -126,12 +126,28 @@
     };
 
     shellAliases = {
-      drs = "sudo darwin-rebuild switch --flake .";
       nup = "sudo sh -c 'cd /Users/slothy/.config/nix && nix flake update && darwin-rebuild switch --flake .'";
     };
 
     initContent = ''
       eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd --shell zsh)"
+
+      drs() {
+        sudo -v || return
+        (
+          while sudo -n true 2>/dev/null; do
+            sleep 50
+          done
+        ) &
+        local sudo_keepalive_pid=$!
+
+        sudo darwin-rebuild switch --flake .
+        local status=$?
+
+        kill "$sudo_keepalive_pid" 2>/dev/null
+        wait "$sudo_keepalive_pid" 2>/dev/null
+        return "$status"
+      }
     '';
   };
 

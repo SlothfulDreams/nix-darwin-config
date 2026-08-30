@@ -26,7 +26,7 @@
 - Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
   Obsidian, Raycast, Discord, Slack, Spotify, Steam, Roblox Studio, Ghostty, Zed,
   Visual Studio Code, Claude, Claude Code, ChatGPT, Wispr Flow, and
-  Logi Options+.
+  OpenLogi.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
@@ -54,7 +54,7 @@ Apply the system:
 sudo darwin-rebuild switch --flake .#Slothbook
 ```
 
-Or use the Home Manager Zsh alias from this repo root:
+Or use the Home Manager Zsh function from this repo root. It keeps sudo authorization active for the full rebuild, including Homebrew operations:
 
 ```sh
 drs
