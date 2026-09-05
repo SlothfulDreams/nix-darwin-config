@@ -10,13 +10,61 @@
 
 | Area | Current setup |
 | --- | --- |
-| Host | `Slothbook` |
+| Config | `default` (works on any Mac, regardless of hostname) |
 | User | `slothy` |
 | Platform | `aarch64-darwin` |
 | Nixpkgs | `nixpkgs-unstable` |
 | System layer | `nix-darwin` |
 | Homebrew layer | `nix-homebrew` |
 | User layer | Home Manager via `home.nix` |
+
+## Fresh Mac Setup
+
+One generic `default` configuration works on every Apple Silicon Mac with the
+`slothy` user, no matter the hostname. From a brand-new machine:
+
+### 1. Install Nix
+
+Use the [official installer](https://nixos.org/download/) (multi-user, the
+only supported mode on macOS):
+
+```sh
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh
+```
+
+Then open a new shell so `nix` is on your `PATH`.
+
+> Don't use the Determinate installer: it now installs Determinate Nix, which
+> requires `nix.enable = false` in nix-darwin and conflicts with the `nix.*`
+> settings this flake manages.
+
+### 2. Apply this flake (one command)
+
+Straight from GitHub, no clone needed:
+
+```sh
+sudo nix run --extra-experimental-features "nix-command flakes" nix-darwin/master#darwin-rebuild -- switch --flake github:SlothfulDreams/nix-darwin-config#default
+```
+
+The `--extra-experimental-features` flag is only needed this first time; the
+flake enables flakes permanently from then on.
+
+This installs nix-darwin, Homebrew (via nix-homebrew), all packages, casks,
+macOS defaults, and the Home Manager user config in a single pass.
+
+> Note: Nix itself doesn't need Xcode Command Line Tools, but Homebrew may
+> prompt for them (`xcode-select --install`) if a tap formula has to build
+> from source.
+
+### 3. (Optional) Clone for local edits
+
+```sh
+git clone https://github.com/SlothfulDreams/nix-darwin-config.git ~/.config/nix
+```
+
+After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
+`nup` shell helpers are available, so future rebuilds are just `drs` from
+`~/.config/nix`.
 
 ## What This Manages
 
@@ -51,7 +99,7 @@
 Apply the system:
 
 ```sh
-sudo darwin-rebuild switch --flake .#Slothbook
+sudo darwin-rebuild switch --flake .#default
 ```
 
 Or use the Home Manager Zsh function from this repo root. It keeps sudo authorization active for the full rebuild, including Homebrew operations:
@@ -63,7 +111,13 @@ drs
 Build without switching:
 
 ```sh
-darwin-rebuild build --flake .#Slothbook
+darwin-rebuild build --flake .#default
+```
+
+Update all inputs and rebuild in one go:
+
+```sh
+nup
 ```
 
 Update inputs:

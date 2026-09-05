@@ -126,7 +126,7 @@
     };
 
     shellAliases = {
-      nup = "sudo sh -c 'cd /Users/slothy/.config/nix && nix flake update && darwin-rebuild switch --flake .'";
+      nup = "sudo sh -c \"cd $HOME/.config/nix && nix flake update && darwin-rebuild switch --flake .#default\"";
     };
 
     initContent = ''
@@ -141,7 +141,7 @@
         ) &
         local sudo_keepalive_pid=$!
 
-        sudo darwin-rebuild switch --flake .
+        sudo darwin-rebuild switch --flake .#default
         local status=$?
 
         kill "$sudo_keepalive_pid" 2>/dev/null

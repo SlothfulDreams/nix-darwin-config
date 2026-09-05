@@ -17,6 +17,10 @@
     nix-homebrew,
     home-manager,
   }: let
+    username = "slothy";
+    homeDir = "/Users/${username}";
+    system = "aarch64-darwin";
+
     configuration = {pkgs, ...}: {
       # ---- Nixpkgs ------------------------------------------------------------
       nixpkgs.config.allowUnfree = true;
@@ -138,8 +142,8 @@
         net.imput.helium
       '';
 
-      system.primaryUser = "slothy";
-      users.users.slothy.home = "/Users/slothy";
+      system.primaryUser = username;
+      users.users.${username}.home = homeDir;
 
       system.defaults = {
         CustomUserPreferences = {
@@ -193,7 +197,7 @@
       # Without this, settings may be written but not visible until logout/restart.
       system.activationScripts.postActivation.text = ''
         echo >&2 "activating user defaults..."
-        sudo -u slothy /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+        sudo -u ${username} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
       '';
 
       # ---- Garbage Collection ------------------------------------------------
@@ -210,10 +214,10 @@
 
           keep_generations /nix/var/nix/profiles/system
           keep_generations /nix/var/nix/profiles/per-user/root/profile
-          keep_generations /nix/var/nix/profiles/per-user/slothy/profile
-          keep_generations /nix/var/nix/profiles/per-user/slothy/home-manager
-          keep_generations /Users/slothy/.local/state/nix/profiles/profile
-          keep_generations /Users/slothy/.local/state/nix/profiles/home-manager
+          keep_generations /nix/var/nix/profiles/per-user/${username}/profile
+          keep_generations /nix/var/nix/profiles/per-user/${username}/home-manager
+          keep_generations ${homeDir}/.local/state/nix/profiles/profile
+          keep_generations ${homeDir}/.local/state/nix/profiles/home-manager
 
           ${pkgs.nix}/bin/nix-store --gc
         '';
@@ -243,13 +247,14 @@
       system.stateVersion = 6;
 
       # The platform the configuration will be used on.
-      nixpkgs.hostPlatform = "aarch64-darwin";
+      nixpkgs.hostPlatform = system;
     };
   in {
-    formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
     # Build darwin flake using:
-    # $ darwin-rebuild build --flake .#Slothbook
-    darwinConfigurations."Slothbook" = nix-darwin.lib.darwinSystem {
+    # $ darwin-rebuild build --flake .#default
+    # One generic configuration that works on any Mac, regardless of hostname.
+    darwinConfigurations."default" = nix-darwin.lib.darwinSystem {
       modules = [
         configuration
         nix-homebrew.darwinModules.nix-homebrew
@@ -257,13 +262,13 @@
         {
           nix-homebrew = {
             enable = true;
-            user = "slothy";
+            user = username;
           };
 
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.slothy = import ./home.nix;
+            users.${username} = import ./home.nix;
           };
         }
       ];
