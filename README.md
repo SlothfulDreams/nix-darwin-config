@@ -77,8 +77,9 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
   OpenLogi.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
-- Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, `fzf`,
-  `direnv`, `nix-direnv`, `zoxide`, and Codex Vim mode.
+- Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, AeroSpace
+  (via `programs.aerospace.settings`), `fzf`, `direnv`, `nix-direnv`,
+  `zoxide`, and Codex Vim mode.
 - A weekly launchd cleanup job that keeps the last 5 Nix generations and runs
   store garbage collection.
 
@@ -87,7 +88,9 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 ```text
 .
 +-- flake.nix      # nix-darwin system, packages, services, Homebrew, macOS defaults
-+-- home.nix       # Home Manager user config
++-- home.nix       # Home Manager user config (incl. AeroSpace settings)
++-- aerospace/
+|   +-- center-panel.sh  # helper referenced by the AeroSpace config
 +-- flake.lock     # pinned flake inputs
 +-- assets/
 |   +-- nixos.png  # local README banner
