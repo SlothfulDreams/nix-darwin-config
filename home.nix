@@ -18,6 +18,18 @@
 
   home.file.".hushlogin".text = "";
 
+  # AeroSpace config. The app itself is installed via the Homebrew cask and
+  # launched by a launchd agent in flake.nix; these files are symlinked from
+  # the Nix store, so edit the repo copies and rebuild (auto-reload-config
+  # picks up the change after switch).
+  xdg.configFile = {
+    "aerospace/aerospace.toml".source = ./aerospace/aerospace.toml;
+    "aerospace/center-panel.sh" = {
+      source = ./aerospace/center-panel.sh;
+      executable = true;
+    };
+  };
+
   # Ghostty terminal config. Ghostty itself is installed via the homebrew cask
   # in flake.nix; package = null because nixpkgs ghostty is the Linux build and
   # is unavailable on macOS. This only writes ~/.config/ghostty/config.

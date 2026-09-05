@@ -128,7 +128,7 @@
       };
 
       # Launch AeroSpace in the primary user's GUI session. Its keybindings and
-      # layout remain in ~/.config/aerospace/aerospace.toml for quick iteration.
+      # layout live in ./aerospace/, deployed by home-manager (see home.nix).
       launchd.user.agents.aerospace.serviceConfig = {
         ProgramArguments = [
           "/Applications/AeroSpace.app/Contents/MacOS/AeroSpace"
