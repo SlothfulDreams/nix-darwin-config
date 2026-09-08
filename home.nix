@@ -248,9 +248,20 @@
     enable = true;
     package = null;
     settings = {
-      font-size = 18;
+      font-family = "JetBrains Mono";
+      font-size = 20;
+      window-padding-x = 16;
+      theme = "Atom One Dark";
+      window-height = 25;
+      window-width = 90;
+      cursor-style = "block";
+      cursor-style-blink = false;
+      cursor-color = "#e6e6e6";
+      cursor-text = "#1a1a1a";
+      shell-integration-features = "no-cursor";
+      background-opacity = 0.95;
+      background-blur = 20;
       copy-on-select = "clipboard";
-      shell-integration-features = "ssh-env,ssh-terminfo";
     };
   };
 

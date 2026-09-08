@@ -144,7 +144,7 @@ nix fmt
 | Networking | `tailscale` |
 | Media | `ffmpeg` |
 | Editors | `neovim`, `selene` |
-| JS/mobile | `bun`, `cocoapods`, `fnm`, `flutter`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
+| JS/mobile | `bun`, `cocoapods`, `fnm`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
 | Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `slack`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code@latest`, `chatgpt`, `wispr-flow` |
 

@@ -61,7 +61,6 @@
         pkgs.bun
         pkgs.cocoapods
         pkgs.fnm
-        pkgs.flutter
         pkgs.nodejs
         pkgs.pnpm
         pkgs.rustup
