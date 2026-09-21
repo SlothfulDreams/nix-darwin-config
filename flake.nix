@@ -85,7 +85,6 @@
           "google-chrome"
           "1password"
           "obsidian"
-          "raycast"
           "thaw"
           "discord"
           "slack"
@@ -146,15 +145,6 @@
 
       system.defaults = {
         CustomUserPreferences = {
-          "com.raycast.macos" = {
-            raycastGlobalHotkey = "Command-49";
-            commandAliases = {
-              windowManagementToggleFullscreen = "fs";
-              windowManagementMaximize = "mx";
-              windowManagementLeftHalf = "lh";
-              windowManagementRightHalf = "rh";
-            };
-          };
           "com.apple.symbolichotkeys" = {
             AppleSymbolicHotKeys = {
               "60".enabled = false; # disable ctrl+space input source switching

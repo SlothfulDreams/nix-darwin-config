@@ -82,7 +82,7 @@
         alt-f = "fullscreen";
         alt-shift-space = "layout floating tiling";
 
-        # Launch or activate Ghostty; use Raycast for other applications.
+        # Launch or activate Ghostty.
         alt-enter = "exec-and-forget open -a 'Ghostty'";
 
         # Focus windows
@@ -224,7 +224,7 @@
 
         # Third-party control panels and menu-bar utilities.
         {
-          "if" = "test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.docker.docker || test %{app-bundle-id} = com.logi.optionsplus || test %{app-bundle-id} = com.raycast.macos || test %{app-bundle-id} = com.electron.wispr-flow || test %{app-bundle-id} = com.workpuls.Agent";
+          "if" = "test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.docker.docker || test %{app-bundle-id} = com.logi.optionsplus || test %{app-bundle-id} = com.electron.wispr-flow || test %{app-bundle-id} = com.workpuls.Agent";
           run = "layout floating";
         }
 
@@ -315,6 +315,13 @@
       };
     };
   };
+
+  # reviewr keeps its own config; herdr's settings never reach it. Stop it from
+  # auto-opening on every new worktree and rely on the cmd+r toggle above.
+  xdg.configFile."herdr/plugins/config/persiyanov.reviewr/config.toml".source =
+    (pkgs.formats.toml { }).generate "reviewr-config.toml" {
+      auto_open = false;
+    };
 
   home.activation.setCodexVimMode = lib.hm.dag.entryAfter ["writeBoundary"] ''
     config="$HOME/.codex/config.toml"
