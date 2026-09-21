@@ -1,6 +1,6 @@
 # slothful nix-darwin
 
-![NixOS logo](./assets/nixos.png)
+<img src="./assets/nixos.png" alt="NixOS logo" width="400">
 
 [![nix-darwin](https://img.shields.io/badge/nix--darwin-macOS-7eb6dd?style=for-the-badge&logo=nixos&logoColor=white)](https://github.com/nix-darwin/nix-darwin)
 [![Home Manager](https://img.shields.io/badge/home--manager-enabled-38bdf8?style=for-the-badge&logo=nixos&logoColor=white)](https://nix-community.github.io/home-manager/)
@@ -72,11 +72,11 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
   version control, editors, and creative tools.
 - System services for Tailscale.
 - Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
-  Obsidian, Discord, Slack, Spotify, Steam, Roblox Studio, Ghostty, Zed,
+  Obsidian, Raycast, Discord, Slack, Spotify, Steam, Roblox Studio, Ghostty, Zed,
   Visual Studio Code, Claude, Claude Code, ChatGPT, Wispr Flow, and
   OpenLogi.
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
-  Spotlight keybinding cleanup, and Caps Lock to Escape.
+  Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, AeroSpace
   (via `programs.aerospace.settings`), `fzf`, `direnv`, `nix-direnv`,
   `zoxide`, and Codex Vim mode.
@@ -146,7 +146,7 @@ nix fmt
 | Editors | `neovim`, `selene` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
 | Creative | `blender` |
-| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `discord`, `slack`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code@latest`, `chatgpt`, `wispr-flow` |
+| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `slack`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code@latest`, `chatgpt`, `wispr-flow` |
 
 ## Services
 

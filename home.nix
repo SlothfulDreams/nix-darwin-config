@@ -82,7 +82,7 @@
         alt-f = "fullscreen";
         alt-shift-space = "layout floating tiling";
 
-        # Launch or activate Ghostty.
+        # Launch or activate Ghostty; use Raycast for other applications.
         alt-enter = "exec-and-forget open -a 'Ghostty'";
 
         # Focus windows
@@ -224,7 +224,7 @@
 
         # Third-party control panels and menu-bar utilities.
         {
-          "if" = "test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.docker.docker || test %{app-bundle-id} = com.logi.optionsplus || test %{app-bundle-id} = com.electron.wispr-flow || test %{app-bundle-id} = com.workpuls.Agent";
+          "if" = "test %{app-bundle-id} = com.1password.1password || test %{app-bundle-id} = com.docker.docker || test %{app-bundle-id} = com.logi.optionsplus || test %{app-bundle-id} = com.raycast.macos || test %{app-bundle-id} = com.electron.wispr-flow || test %{app-bundle-id} = com.workpuls.Agent";
           run = "layout floating";
         }
 
