@@ -373,6 +373,25 @@
     initContent = ''
       eval "$(${pkgs.fnm}/bin/fnm env --use-on-cd --shell zsh)"
 
+      # Local secrets (API keys etc.): one KEY=value per line in
+      # $ZDOTDIR/secrets.env. The file is never managed by Nix or committed.
+      # Lines are exported literally, never evaluated.
+      _load_secrets() {
+        local line
+        [[ -r $ZDOTDIR/secrets.env ]] || return 0
+        while IFS= read -r line; do
+          [[ -z $line || $line == \#* ]] && continue
+          export "$line"
+        done < $ZDOTDIR/secrets.env
+      }
+      _load_secrets
+
+      # Edit secrets.env (created owner-only on first use), then export it.
+      secrets() {
+        (umask 077 && touch $ZDOTDIR/secrets.env) || return
+        ''${=EDITOR} $ZDOTDIR/secrets.env && _load_secrets
+      }
+
       drs() {
         sudo -v || return
         (

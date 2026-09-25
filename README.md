@@ -135,6 +135,22 @@ Format Nix files:
 nix fmt
 ```
 
+## Secrets
+
+Shell secrets such as API keys live in `~/.config/zsh/secrets.env`, one
+`KEY=value` per line. The file is local to each Mac, lives outside this repo,
+and is readable only by you. Every new zsh exports its values, like `export`
+lines in `.zshrc`.
+
+Add or change a secret (creates the file on first use):
+
+```sh
+secrets
+```
+
+This opens the file in `$EDITOR` and exports the values into the current shell
+when you quit. Other open shells pick them up when restarted.
+
 ## Package Buckets
 
 | Bucket | Examples |
