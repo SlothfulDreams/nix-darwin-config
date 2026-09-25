@@ -72,11 +72,15 @@
         enable = true;
         taps = [
           "nikitabobko/tap"
+          "greptileai/tap"
+          "elevenlabs/tap"
         ];
         brews = [
           "mole"
           "herdr"
           "pi-coding-agent"
+          "greptileai/tap/greptile"
+          "elevenlabs/tap/elevenlabs"
         ];
         casks = [
           "nikitabobko/tap/aerospace"
@@ -261,6 +265,7 @@
         {
           nix-homebrew = {
             enable = true;
+            enableRosetta = true;
             user = username;
           };
 
