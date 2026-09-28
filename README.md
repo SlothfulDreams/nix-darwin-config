@@ -10,7 +10,7 @@
 
 | Area | Current setup |
 | --- | --- |
-| Config | `default` (works on any Mac, regardless of hostname) |
+| Configs | `slothbook`, `slouch`, `work` (see [Hosts](#hosts)) |
 | User | `slothy` |
 | Platform | `aarch64-darwin` |
 | Nixpkgs | `nixpkgs-unstable` |
@@ -18,10 +18,29 @@
 | Homebrew layer | `nix-homebrew` |
 | User layer | Home Manager via `home.nix` |
 
-## Fresh Mac Setup
+## Hosts
 
-One generic `default` configuration works on every Apple Silicon Mac with the
-`slothy` user, no matter the hostname. From a brand-new machine:
+One nix-darwin configuration per Mac. All of them expect the `slothy` user on
+Apple Silicon.
+
+| Host | Machine | On top of the shared base |
+| --- | --- | --- |
+| `slothbook` | Personal laptop | Personal tooling, desktop apps, AeroSpace, Discord, Steam, Roblox, Roblox Studio |
+| `slouch` | Mac Studio used as a cloud computer | Personal tooling, Roblox Studio, Blender, Claude |
+| `work` | Work Mac | Desktop apps, AeroSpace, work git identity |
+
+- **Shared base** (`modules/darwin.nix`, every Mac): the CLI tools under
+  [Packages](#packages), Docker Desktop, Helium, 1Password, Obsidian, Raycast,
+  Slack, Ghostty, ChatGPT, OpenLogi, the Claude Code / Codex / Cursor / pi
+  CLIs, SSH (Remote Login), macOS defaults and the Home Manager config.
+- **Personal tooling** (`modules/personal.nix`): Tailscale, and the Roblox
+  dev tooling: `selene`, `~/.rokit/bin` on the `PATH`, the ElevenLabs CLI.
+- **Desktop apps** (`modules/desktop.nix`, the Macs you sit at): Google
+  Chrome, Thaw, Spotify, Zed, Visual Studio Code, Claude, Wispr Flow.
+- **AeroSpace** (`modules/aerospace.nix`): the tiling window manager, the
+  launchd agent that starts it and its config.
+
+## Fresh Mac Setup
 
 ### 1. Install Nix
 
@@ -40,23 +59,30 @@ Then open a new shell so `nix` is on your `PATH`.
 
 ### 2. Apply this flake (one command)
 
-Straight from GitHub, no clone needed:
+Pick the host from the table above and run, straight from GitHub (no clone
+needed):
 
 ```sh
-sudo nix run --extra-experimental-features "nix-command flakes" nix-darwin/master#darwin-rebuild -- switch --flake github:SlothfulDreams/nix-darwin-config#default
+sudo nix run --extra-experimental-features "nix-command flakes" nix-darwin/master#darwin-rebuild -- switch --flake github:SlothfulDreams/nix-darwin-config#<host>
 ```
 
-The `--extra-experimental-features` flag is only needed this first time; the
-flake enables flakes permanently from then on.
+For example `#slouch` on the Mac Studio. This builds whatever is pushed to
+GitHub, so push local changes first. The `--extra-experimental-features` flag
+is only needed this first time; the flake enables flakes permanently from
+then on.
 
 This installs nix-darwin, Homebrew (via nix-homebrew), all packages, casks,
 macOS defaults, and the Home Manager user config in a single pass.
+
+> Homebrew cleanup is `zap`: every switch uninstalls any Homebrew app the host
+> doesn't list, including ones installed by hand, and deletes their data. Check
+> the host's list before the first switch, especially on the work Mac.
 
 > Note: Nix itself doesn't need Xcode Command Line Tools, but Homebrew may
 > prompt for them (`xcode-select --install`) if a tap formula has to build
 > from source.
 
-### 3. (Optional) Clone for local edits
+### 3. Clone for local edits
 
 ```sh
 git clone https://github.com/SlothfulDreams/nix-darwin-config.git ~/.config/nix
@@ -64,17 +90,32 @@ git clone https://github.com/SlothfulDreams/nix-darwin-config.git ~/.config/nix
 
 After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 `nup` shell helpers are available, so future rebuilds are just `drs` from
-`~/.config/nix`.
+`~/.config/nix`. Both rebuild the host they were built from.
+
+### 4. Per-host follow-up
+
+- `slothbook`, `slouch`: log in to Tailscale with `sudo tailscale up`.
+- `work`: replace the placeholder git name and email in `hosts/work.nix`,
+  then `drs`.
+- Every Mac: add API keys with `secrets` (see [Secrets](#secrets)).
+
+### Moving a Mac off the old `default` config
+
+Configs used to be a single `.#default`. Its `drs` / `nup` still point there,
+so switch once by hand:
+
+```sh
+cd ~/.config/nix && git pull && sudo darwin-rebuild switch --flake .#<host>
+```
+
+From then on `drs` and `nup` target that host.
 
 ## What This Manages
 
-- System packages for shell work, networking, JavaScript/mobile tooling,
-  version control, editors, and creative tools.
-- System services for Tailscale.
-- Homebrew casks for desktop apps like Docker Desktop, Helium, 1Password,
-  Obsidian, Raycast, Discord, Slack, Spotify, Steam, Roblox Studio, Ghostty, Zed,
-  Visual Studio Code, Claude, Claude Code, ChatGPT, Wispr Flow, and
-  OpenLogi.
+- System packages for shell work, version control, media, editors, and
+  JavaScript/mobile tooling.
+- SSH (Remote Login) on every Mac; Tailscale on the personal ones.
+- Homebrew casks for desktop apps, per host (see [Hosts](#hosts)).
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
 - Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, AeroSpace
@@ -87,13 +128,22 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 
 ```text
 .
-+-- flake.nix      # nix-darwin system, packages, services, Homebrew, macOS defaults
-+-- home.nix       # Home Manager user config (incl. AeroSpace settings)
++-- flake.nix          # inputs and one darwinConfiguration per host
++-- modules/
+|   +-- darwin.nix     # shared base: packages, services, Homebrew, macOS defaults
+|   +-- personal.nix   # personal Macs: Tailscale, Roblox dev tooling
+|   +-- desktop.nix    # apps for the Macs you sit at
+|   +-- aerospace.nix  # AeroSpace cask, launchd agent and config
++-- hosts/
+|   +-- slothbook.nix  # personal + desktop + AeroSpace + Discord, games
+|   +-- slouch.nix     # personal + Roblox Studio, Blender, Claude
+|   +-- work.nix       # desktop + AeroSpace + work git identity
++-- home.nix           # Home Manager user config (shared by every host)
 +-- aerospace/
 |   +-- center-panel.sh  # helper referenced by the AeroSpace config
-+-- flake.lock     # pinned flake inputs
++-- flake.lock         # pinned flake inputs
 +-- assets/
-|   +-- nixos.png  # local README banner
+|   +-- nixos.png      # local README banner
 +-- README.md
 ```
 
@@ -102,10 +152,12 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 Apply the system:
 
 ```sh
-sudo darwin-rebuild switch --flake .#default
+sudo darwin-rebuild switch --flake .#<host>
 ```
 
-Or use the Home Manager Zsh function from this repo root. It keeps sudo authorization active for the full rebuild, including Homebrew operations:
+Or use the Home Manager Zsh function from this repo root. It keeps sudo
+authorization active for the full rebuild, including Homebrew operations, and
+rebuilds this Mac's host:
 
 ```sh
 drs
@@ -114,10 +166,10 @@ drs
 Build without switching:
 
 ```sh
-darwin-rebuild build --flake .#default
+darwin-rebuild build --flake .#<host>
 ```
 
-Update all inputs and rebuild in one go:
+Update all inputs and rebuild this Mac's host in one go:
 
 ```sh
 nup
@@ -135,6 +187,14 @@ Format Nix files:
 nix fmt
 ```
 
+## Adding or Changing a Host
+
+- To add a host, create `hosts/<name>.nix`, add the name to the list in
+  `flake.nix`, and `git add` the new file (flakes only see tracked files).
+- To give only some Macs a package or app, put it in a host file or a module
+  they import, not in `modules/darwin.nix`. Nix lists merge, so a host can add
+  to the shared lists but not remove from them.
+
 ## Secrets
 
 Shell secrets such as API keys live in `~/.config/zsh/secrets.env`, one
@@ -151,29 +211,33 @@ secrets
 This opens the file in `$EDITOR` and exports the values into the current shell
 when you quit. Other open shells pick them up when restarted.
 
-## Package Buckets
+## Packages
 
-| Bucket | Examples |
+System packages on every Mac:
+
+| Bucket | Packages |
 | --- | --- |
-| Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `herdr`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
+| Shell | `bat`, `eza`, `fd`, `fastfetch`, `fzf`, `ripgrep`, `tldr`, `television`, `tree`, `uv`, `zoxide` |
 | Git | `git`, `gh` |
-| Networking | `tailscale` |
-| Media | `ffmpeg` |
-| Editors | `neovim`, `selene` |
+| Media | `ffmpeg`, `yt-dlp` |
+| Editors | `neovim` |
 | JS/mobile | `bun`, `cocoapods`, `fnm`, `nodejs`, `pnpm`, `rustup`, `xcodegen` |
-| Creative | `blender` |
-| Apps | `docker-desktop`, `helium-browser`, `1password`, `obsidian`, `raycast`, `discord`, `slack`, `spotify`, `steam`, `robloxstudio`, `ghostty`, `zed`, `visual-studio-code`, `claude`, `claude-code@latest`, `chatgpt`, `wispr-flow` |
+| Homebrew CLIs | `herdr`, `mole`, `pi-coding-agent`, `greptile`, `claude-code@latest`, `codex`, `cursor-cli` |
+
+Per-host packages and apps are listed under [Hosts](#hosts).
 
 ## Services
 
-| Service | Status |
+| Service | Hosts |
 | --- | --- |
-| Tailscale | Enabled at startup |
+| SSH (Remote Login) | all |
+| Tailscale | `slothbook`, `slouch` |
+| AeroSpace (launchd agent) | `slothbook`, `work` |
 
 ## Notes
 
-- `flake.nix` is the source of truth for system packages, Homebrew apps, fonts,
-  macOS defaults, keyboard mapping, and nix-darwin modules.
+- `modules/darwin.nix` is the source of truth for the shared base;
+  `hosts/` and the other `modules/` add to it per host.
 - `home.nix` is the source of truth for user-level shell/editor behavior.
 - Homebrew cleanup is set to `zap`, so removed casks are cleaned aggressively on
   activation.
