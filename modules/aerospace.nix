@@ -32,8 +32,9 @@
       default-root-container-orientation = "auto";
       accordion-padding = 30;
 
-      # Main monitor: 1 Development, 2 Research, 3 Chat, 4 Spotify.
-      # Secondary monitor: 5-7 Spare (see force-assignment below).
+      # 1 Development, 2 Research, 3 Chat, 4 Spotify, 5-7 Spare. Workspaces
+      # aren't pinned to monitors: summon one to the focused monitor and
+      # switching to it later focuses whichever monitor it is on.
       persistent-workspaces = ["1" "2" "3" "4" "5" "6" "7"];
       focus-follows-mouse.enabled = false;
       automatically-unhide-macos-hidden-apps = false;
@@ -51,18 +52,6 @@
           top = 0;
           right = 0;
         };
-      };
-
-      # Pin workspaces to monitors (i3-style). 5-7 fall back to main when
-      # only one screen is present.
-      workspace-to-monitor-force-assignment = {
-        "1" = "main";
-        "2" = "main";
-        "3" = "main";
-        "4" = "main";
-        "5" = ["secondary" "main"];
-        "6" = ["secondary" "main"];
-        "7" = ["secondary" "main"];
       };
 
       mode.main.binding = {
@@ -122,6 +111,15 @@
         alt-shift-5 = "move-node-to-workspace 5";
         alt-shift-6 = "move-node-to-workspace 6";
         alt-shift-7 = "move-node-to-workspace 7";
+
+        # Bring a workspace to the focused monitor.
+        alt-ctrl-1 = "summon-workspace 1";
+        alt-ctrl-2 = "summon-workspace 2";
+        alt-ctrl-3 = "summon-workspace 3";
+        alt-ctrl-4 = "summon-workspace 4";
+        alt-ctrl-5 = "summon-workspace 5";
+        alt-ctrl-6 = "summon-workspace 6";
+        alt-ctrl-7 = "summon-workspace 7";
 
         alt-tab = "workspace-back-and-forth";
         alt-shift-tab = "move-workspace-to-monitor --wrap-around next";
