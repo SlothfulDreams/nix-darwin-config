@@ -50,6 +50,9 @@ in {
   ];
 
   # ---- Homebrew ----------------------------------------------------------
+  # Homebrew refuses to load third-party tap formulae/casks until trusted.
+  nix-homebrew.trust.formulae = ["greptileai/tap/greptile"];
+
   homebrew = {
     enable = true;
     taps = [

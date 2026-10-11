@@ -3,6 +3,7 @@
 {username, ...}: {
   homebrew.taps = ["nikitabobko/tap"];
   homebrew.casks = ["nikitabobko/tap/aerospace"];
+  nix-homebrew.trust.casks = ["nikitabobko/tap/aerospace"];
 
   # Launch AeroSpace in the primary user's GUI session.
   launchd.user.agents.aerospace.serviceConfig = {

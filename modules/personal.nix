@@ -10,6 +10,7 @@
 
   homebrew.taps = ["elevenlabs/tap"];
   homebrew.brews = ["elevenlabs/tap/elevenlabs"];
+  nix-homebrew.trust.formulae = ["elevenlabs/tap/elevenlabs"];
 
   home-manager.users.${username}.home.sessionPath = ["$HOME/.rokit/bin"];
 }
