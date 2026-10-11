@@ -8,9 +8,10 @@
   environment.systemPackages = [pkgs.tailscale pkgs.selene];
   services.tailscale.enable = true;
 
-  homebrew.taps = ["elevenlabs/tap"];
-  homebrew.brews = ["elevenlabs/tap/elevenlabs"];
-  nix-homebrew.trust.formulae = ["elevenlabs/tap/elevenlabs"];
+  homebrew.taps = ["elevenlabs/tap" "openai/tools"];
+  homebrew.brews = ["elevenlabs/tap/elevenlabs" "openai/tools/tart"];
+  # softnet is a tart dependency; brew refuses to load it unless trusted too.
+  nix-homebrew.trust.formulae = ["elevenlabs/tap/elevenlabs" "openai/tools/tart" "openai/tools/softnet"];
 
   home-manager.users.${username}.home.sessionPath = ["$HOME/.rokit/bin"];
 }
