@@ -32,6 +32,9 @@ in {
     pkgs.git
     pkgs.gh
 
+    # Containers (engine runs in the OrbStack cask below)
+    pkgs.docker
+
     # Media tools
     pkgs.ffmpeg
     pkgs.yt-dlp
@@ -65,7 +68,7 @@ in {
       "greptileai/tap/greptile"
     ];
     casks = [
-      "docker-desktop"
+      "orbstack"
       "helium-browser"
       "1password"
       "obsidian"
