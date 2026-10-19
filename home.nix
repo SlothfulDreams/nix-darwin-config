@@ -39,7 +39,9 @@
       cursor-style-blink = false;
       cursor-color = "#e6e6e6";
       cursor-text = "#1a1a1a";
-      shell-integration-features = "no-cursor";
+      # ssh-terminfo installs xterm-ghostty on SSH hosts that lack it;
+      # ssh-env falls back to TERM=xterm-256color if that install fails.
+      shell-integration-features = "no-cursor,ssh-terminfo,ssh-env";
       background-opacity = 0.95;
       background-blur = 20;
       copy-on-select = "clipboard";
