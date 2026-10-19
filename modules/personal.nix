@@ -7,6 +7,9 @@
 }: {
   environment.systemPackages = [pkgs.tailscale pkgs.selene];
   services.tailscale.enable = true;
+  # nix-darwin symlinks this into /etc/static, but tailscaled (1.104+) writes it
+  # via os.Root and rejects the out-of-tree symlink ("path escapes from parent").
+  environment.etc."resolver/ts.net".enable = false;
 
   homebrew.taps = ["elevenlabs/tap" "openai/tools"];
   homebrew.brews = ["elevenlabs/tap/elevenlabs" "openai/tools/tart"];
