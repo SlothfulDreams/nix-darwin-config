@@ -37,10 +37,13 @@
       # aren't pinned to monitors: summon one to the focused monitor and
       # switching to it later focuses whichever monitor it is on.
       persistent-workspaces = ["1" "2" "3" "4" "5" "6" "7"];
-      focus-follows-mouse.enabled = false;
       automatically-unhide-macos-hidden-apps = false;
 
-      # Lazy mouse warp to the newly focused monitor.
+      # Hyprland-style multi-monitor behavior: focus follows the mouse, and
+      # keyboard focus changes warp the cursor onto the focused window (or the
+      # monitor, when its workspace is empty) so the two never disagree.
+      focus-follows-mouse.enabled = true;
+      on-focus-changed = ["move-mouse window-lazy-center"];
       on-focused-monitor-changed = ["move-mouse monitor-lazy-center"];
 
       # Edge-to-edge tiling, no gaps.
@@ -65,29 +68,19 @@
         # Launch or activate Ghostty; use Raycast for other applications.
         alt-enter = "exec-and-forget open -a 'Ghostty'";
 
-        # Focus windows
-        alt-h = "focus left";
-        alt-j = "focus down";
-        alt-k = "focus up";
-        alt-l = "focus right";
+        # Focus windows; past the workspace edge, continue onto the adjacent
+        # monitor like Hyprland's movefocus.
+        alt-h = "focus --boundaries all-monitors-outer-frame left";
+        alt-j = "focus --boundaries all-monitors-outer-frame down";
+        alt-k = "focus --boundaries all-monitors-outer-frame up";
+        alt-l = "focus --boundaries all-monitors-outer-frame right";
 
-        # Move windows
-        alt-shift-h = "move left";
-        alt-shift-j = "move down";
-        alt-shift-k = "move up";
-        alt-shift-l = "move right";
-
-        # Focus monitors with the same Vim directions plus Control.
-        alt-ctrl-h = "focus-monitor --wrap-around left";
-        alt-ctrl-j = "focus-monitor --wrap-around down";
-        alt-ctrl-k = "focus-monitor --wrap-around up";
-        alt-ctrl-l = "focus-monitor --wrap-around right";
-
-        # Add Shift to move the focused window to that monitor and follow it.
-        alt-ctrl-shift-h = "move-node-to-monitor --focus-follows-window --wrap-around left";
-        alt-ctrl-shift-j = "move-node-to-monitor --focus-follows-window --wrap-around down";
-        alt-ctrl-shift-k = "move-node-to-monitor --focus-follows-window --wrap-around up";
-        alt-ctrl-shift-l = "move-node-to-monitor --focus-follows-window --wrap-around right";
+        # Move windows; past the workspace edge, the window crosses onto the
+        # adjacent monitor like Hyprland's movewindow.
+        alt-shift-h = "move --boundaries all-monitors-outer-frame left";
+        alt-shift-j = "move --boundaries all-monitors-outer-frame down";
+        alt-shift-k = "move --boundaries all-monitors-outer-frame up";
+        alt-shift-l = "move --boundaries all-monitors-outer-frame right";
 
         # Resize windows
         alt-minus = "resize smart -50";
@@ -104,14 +97,24 @@
         alt-6 = "workspace --auto-back-and-forth 6";
         alt-7 = "workspace --auto-back-and-forth 7";
 
-        # Move the focused window between workspaces.
-        alt-shift-1 = "move-node-to-workspace 1";
-        alt-shift-2 = "move-node-to-workspace 2";
-        alt-shift-3 = "move-node-to-workspace 3";
-        alt-shift-4 = "move-node-to-workspace 4";
-        alt-shift-5 = "move-node-to-workspace 5";
-        alt-shift-6 = "move-node-to-workspace 6";
-        alt-shift-7 = "move-node-to-workspace 7";
+        # Move the focused window to a workspace and follow it, even onto
+        # another monitor (Hyprland's movetoworkspace).
+        alt-shift-1 = "move-node-to-workspace --focus-follows-window 1";
+        alt-shift-2 = "move-node-to-workspace --focus-follows-window 2";
+        alt-shift-3 = "move-node-to-workspace --focus-follows-window 3";
+        alt-shift-4 = "move-node-to-workspace --focus-follows-window 4";
+        alt-shift-5 = "move-node-to-workspace --focus-follows-window 5";
+        alt-shift-6 = "move-node-to-workspace --focus-follows-window 6";
+        alt-shift-7 = "move-node-to-workspace --focus-follows-window 7";
+
+        # Move the focused window without following it (movetoworkspacesilent).
+        alt-ctrl-shift-1 = "move-node-to-workspace 1";
+        alt-ctrl-shift-2 = "move-node-to-workspace 2";
+        alt-ctrl-shift-3 = "move-node-to-workspace 3";
+        alt-ctrl-shift-4 = "move-node-to-workspace 4";
+        alt-ctrl-shift-5 = "move-node-to-workspace 5";
+        alt-ctrl-shift-6 = "move-node-to-workspace 6";
+        alt-ctrl-shift-7 = "move-node-to-workspace 7";
 
         # Bring a workspace to the focused monitor.
         alt-ctrl-1 = "summon-workspace 1";
