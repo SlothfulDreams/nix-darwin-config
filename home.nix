@@ -23,8 +23,9 @@
   xdg.enable = true;
 
   # Ghostty terminal config. Ghostty itself is installed via the homebrew cask
-  # in flake.nix; package = null because nixpkgs ghostty is the Linux build and
-  # is unavailable on macOS. This only writes ~/.config/ghostty/config.
+  # in modules/darwin.nix; package = null because nixpkgs ghostty is the Linux
+  # build and is unavailable on macOS. This only writes
+  # ~/.config/ghostty/config.
   programs.ghostty = {
     enable = true;
     package = null;
@@ -48,8 +49,8 @@
     };
   };
 
-  # Herdr is installed through Homebrew in flake.nix. Home Manager owns its
-  # configuration without installing a second copy from nixpkgs.
+  # Herdr is installed through Homebrew in modules/darwin.nix. Home Manager
+  # owns its configuration without installing a second copy from nixpkgs.
   programs.herdr = {
     enable = true;
     package = null;
@@ -186,13 +187,19 @@
         ) &
         local sudo_keepalive_pid=$!
 
-        sudo darwin-rebuild switch --flake .#${host}
+        sudo darwin-rebuild switch --flake "$HOME/.config/nix#${host}"
         local rc=$?
 
         kill "$sudo_keepalive_pid" 2>/dev/null
         wait "$sudo_keepalive_pid" 2>/dev/null
         return "$rc"
       }
+
+      # Rex puts its CLI at the front of PATH, but nix-darwin resets PATH on
+      # shell start. Restore it so `rex` matches the running server.
+      if [ -n "$REX_BIN_DIR" ]; then
+        export PATH="$REX_BIN_DIR:$PATH"
+      fi
     '';
   };
 

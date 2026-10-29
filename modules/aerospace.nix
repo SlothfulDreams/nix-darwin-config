@@ -65,8 +65,8 @@
         alt-f = "fullscreen";
         alt-shift-space = "layout floating tiling";
 
-        # Launch or activate Ghostty; use Raycast for other applications.
-        alt-enter = "exec-and-forget open -a 'Ghostty'";
+        # Launch or activate Rex; use Raycast for other applications.
+        alt-enter = "exec-and-forget open -a 'Rex Beta'";
 
         # Focus windows; past the workspace edge, continue onto the adjacent
         # monitor like Hyprland's movefocus.
@@ -162,7 +162,7 @@
       # keep processing so the picture-in-picture rules below can also float.
       on-window-detected = [
         {
-          "if" = "test %{app-bundle-id} = com.mitchellh.ghostty";
+          "if" = "test %{app-bundle-id} = com.mitchellh.ghostty || test %{app-bundle-id} = com.superlogical.rex";
           run = "move-node-to-workspace 1";
           check-further-callbacks = true;
         }
@@ -177,7 +177,7 @@
           check-further-callbacks = true;
         }
         {
-          "if" = "test %{app-bundle-id} = com.hnc.Discord || test %{app-bundle-id} = com.tinyspeck.slackmacgap";
+          "if" = "test %{app-bundle-id} = app.swiftcord || test %{app-bundle-id} = com.tinyspeck.slackmacgap";
           run = "move-node-to-workspace 3";
           check-further-callbacks = true;
         }

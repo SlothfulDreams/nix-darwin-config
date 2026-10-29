@@ -140,7 +140,7 @@ in {
       magnification = true;
       persistent-apps = [
         "/Applications/Helium.app"
-        "/Applications/Ghostty.app"
+        "/Applications/Rex Beta.app"
         "/Applications/Claude.app"
         "/Applications/ChatGPT.app"
       ];
@@ -163,6 +163,10 @@ in {
   system.activationScripts.postActivation.text = ''
     echo >&2 "activating user defaults..."
     sudo -u ${username} /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+    # Cap system generations at 5 on every switch; the weekly job below
+    # frees their store paths.
+    ${pkgs.nix}/bin/nix-env --profile /nix/var/nix/profiles/system --delete-generations +5
   '';
 
   # ---- Garbage Collection ------------------------------------------------

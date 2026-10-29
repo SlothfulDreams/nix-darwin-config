@@ -25,7 +25,7 @@ Apple Silicon.
 
 | Host | Machine | On top of the shared base |
 | --- | --- | --- |
-| `slothbook` | Personal laptop | Personal tooling, desktop apps, AeroSpace, Discord, Steam, Roblox, Roblox Studio |
+| `slothbook` | Personal laptop | Personal tooling, desktop apps, AeroSpace, Swiftcord, Steam, Roblox, Roblox Studio |
 | `slouch` | Mac Studio used as a cloud computer | Personal tooling, Roblox Studio, Blender, Claude |
 | `work` | Work Mac | Desktop apps, AeroSpace, work git identity |
 
@@ -135,7 +135,7 @@ From then on `drs` and `nup` target that host.
 |   +-- desktop.nix    # apps for the Macs you sit at
 |   +-- aerospace.nix  # AeroSpace cask, launchd agent and config
 +-- hosts/
-|   +-- slothbook.nix  # personal + desktop + AeroSpace + Discord, games
+|   +-- slothbook.nix  # personal + desktop + AeroSpace + Swiftcord, games
 |   +-- slouch.nix     # personal + Roblox Studio, Blender, Claude
 |   +-- work.nix       # desktop + AeroSpace + work git identity
 +-- home.nix           # Home Manager user config (shared by every host)
@@ -243,7 +243,7 @@ Per-host packages and apps are listed under [Hosts](#hosts).
   activation.
 - 1Password is configured to allow Helium through
   `/etc/1password/custom_allowed_browsers`.
-- The Dock is intentionally short: Helium, Ghostty, Claude, and ChatGPT.
+- The Dock is intentionally short: Helium, Rex, Claude, and ChatGPT.
 
 ## References
 
