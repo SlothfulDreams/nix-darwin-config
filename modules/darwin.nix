@@ -74,7 +74,6 @@ in {
       "obsidian"
       "raycast"
       "slack"
-      "ghostty"
       "claude-code@latest"
       "chatgpt"
       "codex"

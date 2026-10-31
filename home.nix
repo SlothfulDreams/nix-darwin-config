@@ -22,33 +22,6 @@
   # ~/.config rather than dotfiles in $HOME.
   xdg.enable = true;
 
-  # Ghostty terminal config. Ghostty itself is installed via the homebrew cask
-  # in modules/darwin.nix; package = null because nixpkgs ghostty is the Linux
-  # build and is unavailable on macOS. This only writes
-  # ~/.config/ghostty/config.
-  programs.ghostty = {
-    enable = true;
-    package = null;
-    settings = {
-      font-family = "JetBrains Mono";
-      font-size = 20;
-      window-padding-x = 16;
-      theme = "Atom One Dark";
-      window-height = 25;
-      window-width = 90;
-      cursor-style = "block";
-      cursor-style-blink = false;
-      cursor-color = "#e6e6e6";
-      cursor-text = "#1a1a1a";
-      # ssh-terminfo installs xterm-ghostty on SSH hosts that lack it;
-      # ssh-env falls back to TERM=xterm-256color if that install fails.
-      shell-integration-features = "no-cursor,ssh-terminfo,ssh-env";
-      background-opacity = 0.95;
-      background-blur = 20;
-      copy-on-select = "clipboard";
-    };
-  };
-
   # Herdr is installed through Homebrew in modules/darwin.nix. Home Manager
   # owns its configuration without installing a second copy from nixpkgs.
   programs.herdr = {
@@ -106,6 +79,15 @@
     (pkgs.formats.toml { }).generate "reviewr-config.toml" {
       auto_open = false;
     };
+
+  # Rex reads keybindings from ~/.config/rex/init.lua. Run `rex config reload`
+  # after switching for a running Rex server to pick up changes.
+  xdg.configFile."rex/init.lua".text = ''
+    rex.bind("shift+cmd+l", "session.next")
+    rex.bind("shift+cmd+h", "session.previous")
+    rex.bind("shift+cmd+j", "client.tab.next")
+    rex.bind("shift+cmd+k", "client.tab.previous")
+  '';
 
   home.activation.setCodexVimMode = lib.hm.dag.entryAfter ["writeBoundary"] ''
     config="$HOME/.codex/config.toml"
@@ -220,6 +202,12 @@
     enable = true;
     enableZshIntegration = true;
     nix-direnv.enable = true;
+  };
+
+  # Sets JAVA_HOME. Projects needing another JDK pin it in their own flake.
+  programs.java = {
+    enable = true;
+    package = pkgs.temurin-bin-25;
   };
 
   programs.zoxide = {

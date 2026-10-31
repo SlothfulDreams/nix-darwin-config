@@ -1,0 +1,75 @@
+#!/bin/bash
+# SketchyBar: floating Catppuccin pills, display only. Left: OmniWM
+# workspaces (app icons) and the focused app. Right: Wi-Fi, volume, battery
+# and a clock. SketchyBar steps aside while macOS's own menu bar is showing
+# (sketchybar-menubar). The notch is left free for Atoll. CONFIG_DIR is set by
+# modules/sketchybar.nix to this directory's Nix store path.
+source "$CONFIG_DIR/colors.sh"
+PLUGINS="$CONFIG_DIR/plugins"
+FONT="JetBrainsMono Nerd Font"
+
+# A reload wipes every item, so workspaces.sh must not trust what it applied
+# before this run.
+rm -rf /tmp/sketchybar-omniwm-"$USER".*
+
+# The bar is transparent and taller than the pills so they sit a few px below
+# the top edge; sketchybar-menubar slides it in and out via y_offset.
+sketchybar --bar position=top height=40 margin=6 y_offset=0 \
+  color=$TRANSPARENT padding_left=4 padding_right=16 topmost=window
+
+sketchybar --default \
+  icon.font="$FONT:Bold:15.0" icon.color=$TEXT \
+  label.font="$FONT:Bold:13.0" label.color=$TEXT \
+  padding_left=2 padding_right=2 \
+  icon.padding_left=8 icon.padding_right=4 \
+  label.padding_left=4 label.padding_right=8
+
+# A pill: rounded background, 1px border and a soft shadow around its items.
+pill() {
+  local name=$1; shift
+  sketchybar --add bracket "$name" "$@" \
+    --set "$name" background.color=$PILL_BG background.height=30 background.corner_radius=10 \
+      background.border_color=$PILL_BORDER background.border_width=1 \
+      background.shadow.drawing=on background.shadow.distance=2 background.shadow.color=0x66000000
+}
+
+# ---- Left: OmniWM workspaces -------------------------------------------
+# workspaces.sh builds the ws.* pills (number + app icons) in front of
+# gap.front whenever OmniWM reports a change.
+sketchybar --add event omniwm_update \
+  --add item omniwm left \
+  --set omniwm drawing=off script="bash $PLUGINS/workspaces.sh" \
+  --subscribe omniwm omniwm_update system_woke
+
+sketchybar --add item gap.front left --set gap.front width=6 icon.drawing=off label.drawing=off
+
+sketchybar --add item front_app left \
+  --set front_app padding_left=8 icon.width=30 icon.padding_left=6 icon.padding_right=0 \
+    icon.background.drawing=on icon.background.image.drawing=on icon.background.image.scale=0.75 \
+    icon.background.color=$TRANSPARENT script="bash $PLUGINS/front_app.sh" \
+  --subscribe front_app front_app_switched
+pill front_app.pill front_app
+
+# ---- Right: status (rightmost first) -----------------------------------
+sketchybar --add item clock right \
+  --set clock icon="󰥔" icon.color=$MAUVE update_freq=5 script="bash $PLUGINS/clock.sh" \
+  --subscribe clock system_woke
+pill clock.pill clock
+sketchybar --add item gap.status right --set gap.status width=6 icon.drawing=off label.drawing=off
+
+sketchybar --add item battery right \
+  --set battery update_freq=120 script="bash $PLUGINS/battery.sh" \
+  --subscribe battery power_source_change system_woke
+
+sketchybar --add item volume right \
+  --set volume icon.color=$PEACH script="bash $PLUGINS/volume.sh" \
+  --subscribe volume volume_change
+
+sketchybar --add item wifi right \
+  --set wifi icon.color=$BLUE update_freq=30 script="bash $PLUGINS/wifi.sh" \
+  --subscribe wifi wifi_change system_woke
+
+pill status.pill wifi volume battery
+
+sketchybar --update
+sketchybar --trigger omniwm_update

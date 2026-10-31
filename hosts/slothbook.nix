@@ -1,6 +1,6 @@
 # Slothbook: personal Mac.
 {...}: {
-  imports = [../modules/personal.nix ../modules/desktop.nix ../modules/aerospace.nix];
+  imports = [../modules/personal.nix ../modules/desktop.nix ../modules/omniwm.nix ../modules/sketchybar.nix ../modules/menubar.nix];
 
-  homebrew.casks = ["swiftcord" "steam" "roblox" "robloxstudio" "blender"];
+  homebrew.casks = ["atoll" "discord" "steam" "roblox" "robloxstudio" "blender"];
 }

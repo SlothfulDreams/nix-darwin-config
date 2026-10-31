@@ -1,6 +1,6 @@
 # Work Mac.
 {username, ...}: {
-  imports = [../modules/desktop.nix ../modules/aerospace.nix];
+  imports = [../modules/desktop.nix ../modules/omniwm.nix];
 
   # TODO: replace with the work git identity.
   home-manager.users.${username}.programs.git.settings.user = {

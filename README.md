@@ -25,20 +25,27 @@ Apple Silicon.
 
 | Host | Machine | On top of the shared base |
 | --- | --- | --- |
-| `slothbook` | Personal laptop | Personal tooling, desktop apps, AeroSpace, Swiftcord, Steam, Roblox, Roblox Studio |
+| `slothbook` | Personal laptop | Personal tooling, desktop apps, OmniWM, SketchyBar, Atoll, Discord, Steam, Roblox, Roblox Studio, Blender |
 | `slouch` | Mac Studio used as a cloud computer | Personal tooling, Roblox Studio, Blender, Claude |
-| `work` | Work Mac | Desktop apps, AeroSpace, work git identity |
+| `work` | Work Mac | Desktop apps, OmniWM, work git identity |
 
 - **Shared base** (`modules/darwin.nix`, every Mac): the CLI tools under
-  [Packages](#packages), Docker Desktop, Helium, 1Password, Obsidian, Raycast,
-  Slack, Ghostty, ChatGPT, OpenLogi, the Claude Code / Codex / Cursor / pi
+  [Packages](#packages), OrbStack, Helium, 1Password, Obsidian, Raycast,
+  Slack, ChatGPT, OpenLogi, the Claude Code / Codex / Cursor / pi
   CLIs, SSH (Remote Login), macOS defaults and the Home Manager config.
 - **Personal tooling** (`modules/personal.nix`): Tailscale, and the Roblox
   dev tooling: `selene`, `~/.rokit/bin` on the `PATH`, the ElevenLabs CLI.
 - **Desktop apps** (`modules/desktop.nix`, the Macs you sit at): Google
   Chrome, Thaw, Spotify, Zed, Visual Studio Code, Claude, Wispr Flow.
-- **AeroSpace** (`modules/aerospace.nix`): the tiling window manager, the
-  launchd agent that starts it and its config.
+- **OmniWM** (`modules/omniwm.nix`): the tiling window manager on
+  `slothbook` and `work`, started by a Home Manager launchd agent. Its
+  settings are edited in the app for now.
+- **SketchyBar** (`modules/sketchybar.nix`, config in `sketchybar/`): the
+  status bar on `slothbook`, fed OmniWM workspace changes by an
+  `omniwmctl watch` agent.
+- **Menu bar** (`modules/menubar.nix`): auto-hides macOS's own menu bar on
+  `slothbook` so SketchyBar takes its place. The real one still slides down
+  at the top edge; `sketchybar/menubar.c` hides SketchyBar while it shows.
 
 ## Fresh Mac Setup
 
@@ -97,6 +104,8 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 - `slothbook`, `slouch`: log in to Tailscale with `sudo tailscale up`.
 - `work`: replace the placeholder git name and email in `hosts/work.nix`,
   then `drs`.
+- `slothbook`: turn on IPC in OmniWM's Settings (`ipcEnabled = true` in
+  `~/.config/omniwm/settings.toml`) so SketchyBar receives workspace updates.
 - Every Mac: add API keys with `secrets` (see [Secrets](#secrets)).
 
 ### Moving a Mac off the old `default` config
@@ -117,10 +126,11 @@ From then on `drs` and `nup` target that host.
 - SSH (Remote Login) on every Mac; Tailscale on the personal ones.
 - Homebrew casks for desktop apps, per host (see [Hosts](#hosts)).
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
-  Raycast hotkeys, Spotlight keybinding cleanup, and Caps Lock to Escape.
-- Home Manager settings for Git, Zsh, Oh My Zsh, Ghostty config, AeroSpace
-  (via `programs.aerospace.settings`), `fzf`, `direnv`, `nix-direnv`,
-  `zoxide`, and Codex Vim mode.
+  Raycast hotkeys, Spotlight/input-source hotkey cleanup, Caps Lock to
+  Escape, and menu bar auto-hide (`slothbook`).
+- Home Manager settings for Git, Zsh, Oh My Zsh, Herdr, Rex, OmniWM, `eza`,
+  `fzf`, `direnv`, `nix-direnv`, `zoxide`, Java (`JAVA_HOME`), and Codex Vim
+  mode.
 - A weekly launchd cleanup job that keeps the last 5 Nix generations and runs
   store garbage collection.
 
@@ -133,14 +143,19 @@ From then on `drs` and `nup` target that host.
 |   +-- darwin.nix     # shared base: packages, services, Homebrew, macOS defaults
 |   +-- personal.nix   # personal Macs: Tailscale, Roblox dev tooling
 |   +-- desktop.nix    # apps for the Macs you sit at
-|   +-- aerospace.nix  # AeroSpace cask, launchd agent and config
+|   +-- omniwm.nix     # OmniWM package and launchd agent
+|   +-- sketchybar.nix # SketchyBar service and OmniWM feed
+|   +-- menubar.nix    # auto-hide macOS's menu bar
 +-- hosts/
-|   +-- slothbook.nix  # personal + desktop + AeroSpace + Swiftcord, games
+|   +-- slothbook.nix  # personal + desktop + OmniWM + SketchyBar + Discord, Blender, games
 |   +-- slouch.nix     # personal + Roblox Studio, Blender, Claude
-|   +-- work.nix       # desktop + AeroSpace + work git identity
+|   +-- work.nix       # desktop + OmniWM + work git identity
 +-- home.nix           # Home Manager user config (shared by every host)
-+-- aerospace/
-|   +-- center-panel.sh  # helper referenced by the AeroSpace config
++-- sketchybar/
+|   +-- sketchybarrc   # bar layout (Catppuccin Mocha pills)
+|   +-- colors.sh      # palette
+|   +-- menubar.c      # hides SketchyBar while macOS's menu bar is showing
+|   +-- plugins/       # workspaces, front app, clock, battery, volume, wifi
 +-- flake.lock         # pinned flake inputs
 +-- assets/
 |   +-- nixos.png      # local README banner
@@ -232,7 +247,8 @@ Per-host packages and apps are listed under [Hosts](#hosts).
 | --- | --- |
 | SSH (Remote Login) | all |
 | Tailscale | `slothbook`, `slouch` |
-| AeroSpace (launchd agent) | `slothbook`, `work` |
+| OmniWM (launchd agent) | `slothbook`, `work` |
+| SketchyBar (3 launchd agents: bar, OmniWM feed, menu-bar watcher) | `slothbook` |
 
 ## Notes
 
