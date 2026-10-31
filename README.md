@@ -104,8 +104,8 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 - `slothbook`, `slouch`: log in to Tailscale with `sudo tailscale up`.
 - `work`: replace the placeholder git name and email in `hosts/work.nix`,
   then `drs`.
-- `slothbook`: turn on IPC in OmniWM's Settings (`ipcEnabled = true` in
-  `~/.config/omniwm/settings.toml`) so SketchyBar receives workspace updates.
+- `work`: turn on IPC in OmniWM's Settings if you add SketchyBar there
+  (`slothbook`'s `omniwm/settings.toml` already has it).
 - Every Mac: add API keys with `secrets` (see [Secrets](#secrets)).
 
 ### Moving a Mac off the old `default` config
@@ -151,6 +151,8 @@ From then on `drs` and `nup` target that host.
 |   +-- slouch.nix     # personal + Roblox Studio, Blender, Claude
 |   +-- work.nix       # desktop + OmniWM + work git identity
 +-- home.nix           # Home Manager user config (shared by every host)
++-- omniwm/
+|   +-- settings.toml  # slothbook's OmniWM settings (hotkeys, gaps, app rules, workspaces)
 +-- sketchybar/
 |   +-- sketchybarrc   # bar layout (Catppuccin Mocha pills)
 |   +-- colors.sh      # palette

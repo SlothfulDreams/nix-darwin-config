@@ -1,6 +1,6 @@
 # OmniWM tiling window manager: Home Manager installs it and runs it as a
-# launchd agent. settings.toml is left unmanaged so it can be edited from
-# OmniWM's Settings window; move it into `settings` here once it's settled.
+# launchd agent. Hosts may pin settings.toml via programs.omniwm.settings
+# (slothbook does); otherwise it is edited from OmniWM's Settings window.
 {username, ...}: {
   home-manager.users.${username}.programs.omniwm.enable = true;
 
