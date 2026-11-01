@@ -313,11 +313,6 @@ id = "62D10E8F-A429-4A7E-90EA-407D0D61B02A"
 
 [[appRules]]
 assignToWorkspace = "1"
-bundleId = "com.superlogical.rex"
-id = "5D7082B0-5A15-436C-84CC-F9F0626FC920"
-
-[[appRules]]
-assignToWorkspace = "1"
 bundleId = "com.anysphere.sand"
 id = "0FD6F8AF-D4DD-4040-860E-CF21EE73483C"
 
