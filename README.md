@@ -27,7 +27,7 @@ Apple Silicon.
 | --- | --- | --- |
 | `slothbook` | Personal laptop | Personal tooling, desktop apps, OmniWM, SketchyBar, Atoll, Discord, Steam, Roblox, Roblox Studio, Blender |
 | `slouch` | Mac Studio used as a cloud computer | Personal tooling, Roblox Studio, Blender, Claude |
-| `work` | Work Mac | Desktop apps, OmniWM, work git identity |
+| `work` | Work Mac | Desktop apps, OmniWM, SketchyBar, work git identity |
 
 - **Shared base** (`modules/darwin.nix`, every Mac): the CLI tools under
   [Packages](#packages), OrbStack, Helium, 1Password, Obsidian, Raycast,
@@ -38,13 +38,13 @@ Apple Silicon.
 - **Desktop apps** (`modules/desktop.nix`, the Macs you sit at): Google
   Chrome, Thaw, Spotify, Zed, Visual Studio Code, Claude, Wispr Flow.
 - **OmniWM** (`modules/omniwm.nix`): the tiling window manager on
-  `slothbook` and `work`, started by a Home Manager launchd agent. Its
-  settings are edited in the app for now.
+  `slothbook` and `work`, started by a Home Manager launchd agent. Both use
+  the settings in `omniwm/settings.toml`.
 - **SketchyBar** (`modules/sketchybar.nix`, config in `sketchybar/`): the
-  status bar on `slothbook`, fed OmniWM workspace changes by an
+  status bar on `slothbook` and `work`, fed OmniWM workspace changes by an
   `omniwmctl watch` agent.
 - **Menu bar** (`modules/menubar.nix`): auto-hides macOS's own menu bar on
-  `slothbook` so SketchyBar takes its place. The real one still slides down
+  `slothbook` and `work` so SketchyBar takes its place. The real one still slides down
   at the top edge; `sketchybar/menubar.c` hides SketchyBar while it shows.
 
 ## Fresh Mac Setup
@@ -104,8 +104,6 @@ After the first activation, `darwin-rebuild` is on your `PATH` and the `drs` /
 - `slothbook`, `slouch`: log in to Tailscale with `sudo tailscale up`.
 - `work`: replace the placeholder git name and email in `hosts/work.nix`,
   then `drs`.
-- `work`: turn on IPC in OmniWM's Settings if you add SketchyBar there
-  (`slothbook`'s `omniwm/settings.toml` already has it).
 - Every Mac: add API keys with `secrets` (see [Secrets](#secrets)).
 
 ### Moving a Mac off the old `default` config
@@ -127,7 +125,7 @@ From then on `drs` and `nup` target that host.
 - Homebrew casks for desktop apps, per host (see [Hosts](#hosts)).
 - macOS defaults for dark mode, Dock contents, Dock autohide/magnification,
   Raycast hotkeys, Spotlight/input-source hotkey cleanup, Caps Lock to
-  Escape, and menu bar auto-hide (`slothbook`).
+  Escape, and menu bar auto-hide (`slothbook`, `work`).
 - Home Manager settings for Git, Zsh, Oh My Zsh, Herdr, Rex, OmniWM, `eza`,
   `fzf`, `direnv`, `nix-direnv`, `zoxide`, Java (`JAVA_HOME`), and Codex Vim
   mode.
@@ -149,10 +147,10 @@ From then on `drs` and `nup` target that host.
 +-- hosts/
 |   +-- slothbook.nix  # personal + desktop + OmniWM + SketchyBar + Discord, Blender, games
 |   +-- slouch.nix     # personal + Roblox Studio, Blender, Claude
-|   +-- work.nix       # desktop + OmniWM + work git identity
+|   +-- work.nix       # desktop + OmniWM + SketchyBar + work git identity
 +-- home.nix           # Home Manager user config (shared by every host)
 +-- omniwm/
-|   +-- settings.toml         # slothbook's OmniWM settings (hotkeys, gaps, app rules, workspaces)
+|   +-- settings.toml         # OmniWM settings (hotkeys, gaps, app rules, workspaces)
 |   +-- assign-workspaces.sh  # applies per-app workspace rules to every new window
 +-- sketchybar/
 |   +-- sketchybarrc   # bar layout (Catppuccin Mocha pills)
@@ -251,7 +249,7 @@ Per-host packages and apps are listed under [Hosts](#hosts).
 | SSH (Remote Login) | all |
 | Tailscale | `slothbook`, `slouch` |
 | OmniWM (launchd agents: WM, workspace-rule watcher) | `slothbook`, `work` |
-| SketchyBar (3 launchd agents: bar, OmniWM feed, menu-bar watcher) | `slothbook` |
+| SketchyBar (3 launchd agents: bar, OmniWM feed, menu-bar watcher) | `slothbook`, `work` |
 
 ## Notes
 
