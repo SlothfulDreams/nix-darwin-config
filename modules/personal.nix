@@ -16,10 +16,7 @@
   homebrew.brews = [
     "elevenlabs/tap/elevenlabs"
     "openai/tools/tart"
-    {
-      name = "hermes-agent";
-      args = ["HEAD"];
-    }
+    "hermes-agent"
   ];
   # softnet is a tart dependency; brew refuses to load it unless trusted too.
   nix-homebrew.trust.formulae = ["elevenlabs/tap/elevenlabs" "openai/tools/tart" "openai/tools/softnet"];
