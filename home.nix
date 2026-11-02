@@ -169,8 +169,24 @@
         ) &
         local sudo_keepalive_pid=$!
 
-        sudo darwin-rebuild switch --flake "$HOME/.config/nix#${host}"
-        local rc=$?
+        local flake="$HOME/.config/nix#${host}" rc
+        if [[ -n $SSH_CONNECTION ]]; then
+          # Over SSH, run the switch detached from this session and follow its
+          # log. Activation can restart tailscaled, which ends a Tailscale SSH
+          # session and would otherwise kill the switch half-way through.
+          local log=$HOME/.cache/drs.log
+          mkdir -p ''${log:h} && : >"$log"
+          sudo nohup darwin-rebuild switch --flake "$flake" </dev/null >"$log" 2>&1 &
+          local switch_pid=$!
+          tail -f "$log" &!
+          local tail_pid=$!
+          wait "$switch_pid"
+          rc=$?
+          kill "$tail_pid" 2>/dev/null
+        else
+          sudo darwin-rebuild switch --flake "$flake"
+          rc=$?
+        fi
 
         kill "$sudo_keepalive_pid" 2>/dev/null
         wait "$sudo_keepalive_pid" 2>/dev/null
