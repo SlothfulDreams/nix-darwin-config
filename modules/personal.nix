@@ -1,6 +1,6 @@
 # Shared by the personal Macs (Slothbook, Slouch): Tailscale and the Roblox
 # dev tooling (selene, Rokit's bin dir, the ElevenLabs CLI for game audio),
-# plus Ghidra.
+# plus Ghidra and the Hermes agent.
 {
   pkgs,
   username,
@@ -13,7 +13,7 @@
   environment.etc."resolver/ts.net".enable = false;
 
   homebrew.taps = ["elevenlabs/tap" "openai/tools"];
-  homebrew.brews = ["elevenlabs/tap/elevenlabs" "openai/tools/tart"];
+  homebrew.brews = ["elevenlabs/tap/elevenlabs" "openai/tools/tart" "hermes-agent"];
   # softnet is a tart dependency; brew refuses to load it unless trusted too.
   nix-homebrew.trust.formulae = ["elevenlabs/tap/elevenlabs" "openai/tools/tart" "openai/tools/softnet"];
 
