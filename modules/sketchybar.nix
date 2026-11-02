@@ -11,10 +11,16 @@
     mkdir -p $out/bin
     $CC -O2 -Wall -Wextra -framework ApplicationServices -o $out/bin/sketchybar-menubar ${../sketchybar/menubar.c}
   '';
+  # Reads the Dock's notification badges for the workspace icons. Runs as a
+  # SketchyBar child, so it relies on SketchyBar's Accessibility permission.
+  sketchybar-dockbadges = pkgs.runCommandCC "sketchybar-dockbadges" {} ''
+    mkdir -p $out/bin
+    $CC -O2 -Wall -Wextra -framework ApplicationServices -o $out/bin/sketchybar-dockbadges ${../sketchybar/dockbadges.c}
+  '';
 in {
   services.sketchybar = {
     enable = true;
-    extraPackages = [pkgs.jq pkgs.omniwm];
+    extraPackages = [pkgs.jq pkgs.omniwm sketchybar-dockbadges];
     config = ''
       CONFIG_DIR=${../sketchybar}
       source "$CONFIG_DIR/sketchybarrc"

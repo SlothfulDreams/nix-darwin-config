@@ -1,6 +1,6 @@
 #!/bin/bash
 # SketchyBar: floating Catppuccin pills, display only. Left: OmniWM
-# workspaces (app icons) and the focused app. Right: Wi-Fi, volume, battery
+# workspaces (app icons with notification badges) and the focused app. Right: Wi-Fi, volume, battery
 # and a clock. SketchyBar steps aside while macOS's own menu bar is showing
 # (sketchybar-menubar). The notch is left free for Atoll. CONFIG_DIR is set by
 # modules/sketchybar.nix to this directory's Nix store path.
@@ -40,6 +40,11 @@ sketchybar --add event omniwm_update \
   --add item omniwm left \
   --set omniwm drawing=off script="bash $PLUGINS/workspaces.sh" \
   --subscribe omniwm omniwm_update system_woke
+
+# Dock notification badges for the workspace app icons, polled like OmniWM.
+sketchybar --add item badges left \
+  --set badges drawing=off update_freq=5 script="bash $PLUGINS/badges.sh" \
+  --subscribe badges front_app_switched system_woke
 
 sketchybar --add item gap.front left --set gap.front width=6 icon.drawing=off label.drawing=off
 
