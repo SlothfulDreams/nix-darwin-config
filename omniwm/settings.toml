@@ -275,14 +275,12 @@ minHeight = 420.0
 minWidth = 500.0
 
 [[appRules]]
-assignToWorkspace = "3"
 bundleId = "com.spotify.client"
 id = "2DE9390B-0DB4-4D0C-9ABA-06F76F1D4EA9"
 minHeight = 600.0
 minWidth = 800.0
 
 [[appRules]]
-assignToWorkspace = "3"
 bundleId = "com.hnc.Discord"
 id = "AF752D95-8497-4844-BE20-4C93E73BAEF2"
 minHeight = 500.0
@@ -301,20 +299,9 @@ minHeight = 320.0
 minWidth = 660.0
 
 [[appRules]]
-assignToWorkspace = "2"
 bundleId = "net.imput.helium"
 id = "6060CDCE-909F-41EB-AF6F-02C39C2BB9FB"
 layout = "tile"
-
-[[appRules]]
-assignToWorkspace = "1"
-bundleId = "com.anthropic.claudefordesktop"
-id = "62D10E8F-A429-4A7E-90EA-407D0D61B02A"
-
-[[appRules]]
-assignToWorkspace = "1"
-bundleId = "com.anysphere.sand"
-id = "0FD6F8AF-D4DD-4040-860E-CF21EE73483C"
 
 [[hotkeys]]
 binding = "Unassigned"

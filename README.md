@@ -151,7 +151,6 @@ From then on `drs` and `nup` target that host.
 +-- home.nix           # Home Manager user config (shared by every host)
 +-- omniwm/
 |   +-- settings.toml         # OmniWM settings (hotkeys, gaps, app rules, workspaces)
-|   +-- assign-workspaces.sh  # applies per-app workspace rules to every new window
 +-- sketchybar/
 |   +-- sketchybarrc   # bar layout (Catppuccin Mocha pills)
 |   +-- colors.sh      # palette
@@ -248,7 +247,7 @@ Per-host packages and apps are listed under [Hosts](#hosts).
 | --- | --- |
 | SSH (Remote Login) | all |
 | Tailscale | `slothbook`, `slouch` |
-| OmniWM (launchd agents: WM, workspace-rule watcher) | `slothbook`, `work` |
+| OmniWM (launchd agent) | `slothbook`, `work` |
 | SketchyBar (3 launchd agents: bar, OmniWM feed, menu-bar watcher) | `slothbook`, `work` |
 
 ## Notes
