@@ -8,4 +8,9 @@
   ];
 
   homebrew.casks = ["robloxstudio" "blender" "claude"];
+
+  # imsg: iMessage/SMS CLI so agents can read and send Messages.
+  homebrew.taps = ["steipete/tap"];
+  homebrew.brews = ["steipete/tap/imsg"];
+  nix-homebrew.trust.formulae = ["steipete/tap/imsg"];
 }
