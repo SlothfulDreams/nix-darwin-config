@@ -113,6 +113,8 @@
       init.defaultBranch = "main";
       pull.rebase = false;
       push.autoSetupRemote = true;
+      # HTTPS GitHub auth through the signed-in gh CLI.
+      credential."https://github.com".helper = "!${pkgs.gh}/bin/gh auth git-credential";
       # Hosts can override this (see hosts/work.nix).
       user = lib.mkDefault {
         name = "SlothfulDreams";
